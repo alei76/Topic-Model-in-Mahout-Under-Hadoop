@@ -1,0 +1,37 @@
+Mahoot commands and Step:
+
+-> The DocumentGenerator.java file generates input documents. 
+
+-> Push the generated text file to hdfs.
+
+-> Generate sequence file from text file.
+
+	./bin/mahout seqdirectory --input /user/../mahout/assignment5/ --output /user/../mahout/output/ -c UTF-8
+
+-> Generate sparse vector
+
+	./bin/mahout seq2sparse -i /user/../mahout/output3/ -o /user/../mahout/vector/ -wt TF
+
+-> Convert tf-vector to sparse vector format.
+
+	./bin/mahout rowid –i /user/../mahout/vector/tf-vectors -o /user/../mahout/sparse-vectors-cvb
+
+-> Run the CVB algorithm.
+
+	./bin/hadoop fs –mv /user/../mahout/sparse-vectors-cvb/docIndex /user/../mahout/out/sparse-verctors-docIndex-latest1
+
+	./bin/mahout cvb -i /user/../mahout/sparse-vectors-cvb -o /user/../mahout/lda/ -k 10 -x 1 -nt 3000 -mt /user/../mahout/temp/ -dt /user/../mahout/lda-topics -dict /user/../mahout/vector/dictionary.file-0 
+
+-> Dump the topical output to local file system. This file /home/../lda_output/part-m-00000 that is dumped has probability of words and topics appearing.
+
+	./bin/mahout vectordump -i /user/../mahout/lda-topics/part-m-00000 -o /home/../lda_output/part-m-00000 -vs 10 -p true -dt sequencefile -sort /user/../mahout/test-lda-topics/ -c csv -d /user/../mahout/vector/dictionary.file-0 
+
+-> Dump the distribution of words by topics.
+
+	./bin/mahout vectordump -i /user/../mahout/lda/part-m-00000 -o /home/../lda_output/words/part-m-00000 -dt sequencefile -c csv -d /user/../mahout/vector/dictionary.file-0 -sort /user/../mahout/test-lda-topics/
+
+	./bin/mahout vectordump -i /user/../mahout/lda/part-m-00001 -o /home/../lda_output/words/part-m-00001 -dt sequencefile -c csv -d /user/../mahout/vector/dictionary.file-0 -sort /user/../mahout/test-lda-topics/
+
+-> ProbabilityOfTopic.java defines how probability of topics are found across document set.
+
+-> DistributionOfTopic defines how words are distributed in a topics.
