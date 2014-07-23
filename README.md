@@ -10,16 +10,27 @@ done. The format of the docword.nips.txt ﬁle extracted from docword.nips.txt.g
 lines, followed by NNZ triples:
 
 D
+
 W
+
 NNZ
+
 docID wordID count
+
 docID wordID count
+
 docID wordID count
+
 docID wordID count
+
 ...
+
 docID wordID count
+
 docID wordID count
+
 docID wordID count
+
 
 The format of the vocab.nips.txt ﬁle contains all unique words. The number in each line is
 the corresponding wordID. For example, the wordID of “a2i" is 1.
