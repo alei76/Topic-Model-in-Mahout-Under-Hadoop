@@ -1,4 +1,4 @@
-Mahoot commands and Step:
+Mahout commands and Step:
 
 -> The DocumentGenerator.java file generates input documents. 
 
